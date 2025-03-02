@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  vue-project:
+    build:
+      context: ./vue-project # Path to your Vue.js app directory
+      dockerfile: Dockerfile # Dockerfile in the vue-app directory
+    ports:
+      - "8080:80"
+    depends_on:
+      - server # Ensures websocket-server starts first
+
+  server:
+    build:
+      context: ./server # Path to your Node.js/Socket.IO server directory
+      dockerfile: Dockerfile # Dockerfile in the websocket-server directory
+    ports:
+      - "3000:3000" # Or whatever port your websocket server uses.
+    # If the websocket server needs environment variables, add them here:
+    # environment:
+    #  - SOME_VAR=value
